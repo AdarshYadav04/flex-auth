@@ -1,0 +1,35 @@
+{
+  "name": "flex-auth",
+  "version": "1.0.0",
+  "description": "Flexible Node.js authentication module supporting multiple credential strategies.",
+  "main": "index.js",
+  "keywords": [
+    "authentication",
+    "auth",
+    "nodejs",
+    "express",
+    "email-login",
+    "mobile-login",
+    "flexible-auth"
+  ],
+  "scripts": {
+    "start": "node example-app.js",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "author": "Adarsh Yadav",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.6.0",
+    "dotenv": "^16.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdarshYadav04/flex-auth.git"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
