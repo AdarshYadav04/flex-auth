@@ -1,6 +1,6 @@
 {
-  "name": "flex-auth",
-  "version": "1.0.0",
+  "name": "flex-auth-core",
+  "version": "1.0.1",
   "description": "Flexible Node.js authentication module supporting multiple credential strategies.",
   "main": "index.js",
   "keywords": [
@@ -25,10 +25,12 @@
     "mongoose": "^7.6.0",
     "dotenv": "^16.3.1"
   },
+  
   "repository": {
     "type": "git",
     "url": "https://github.com/AdarshYadav04/flex-auth.git"
   },
+  
   "engines": {
     "node": ">=14.0.0"
   }
