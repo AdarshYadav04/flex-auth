@@ -1,15 +1,15 @@
-// flex-auth: Flexible authentication NPM package
-
 require('dotenv').config();
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validateInput } = require('./utils/validate');
 const { hashPassword, comparePassword } = require('./utils/hash');
+const { setupOAuth, generateOAuthRoutes } = require('./utils/oauth');
 const mongoose = require('mongoose');
+const User = require('./models/User');
 
 function flexAuth(config) {
-  const { methods, jwtSecret, mongoUri } = config;
+  const { methods, jwtSecret, mongoUri, enableOAuth } = config;
 
   if (!jwtSecret || !mongoUri) {
     throw new Error('Missing required config: jwtSecret or mongoUri');
@@ -22,14 +22,9 @@ function flexAuth(config) {
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
 
-  const userSchema = new mongoose.Schema({
-    email: String,
-    mobile: String,
-    username: String,
-    password: String
-  });
-
-  const User = mongoose.model('User', userSchema);
+  if (enableOAuth) {
+    setupOAuth({ jwtSecret });
+  }
 
   const getQuery = (body) => {
     return body.email ? { email: body.email } : { mobile: body.mobile };
@@ -70,6 +65,13 @@ function flexAuth(config) {
 
       const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1h' });
       res.status(200).json({ message: 'Login successful', token, email: user.email, username: user.username });
+    },
+
+    useOAuth(app) {
+      if (!enableOAuth) {
+        throw new Error('OAuth not enabled. Set enableOAuth: true in config.');
+      }
+      generateOAuthRoutes(app, jwtSecret);
     }
   };
 }
