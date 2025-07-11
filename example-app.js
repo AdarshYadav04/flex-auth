@@ -5,6 +5,7 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 
+
 const auth = flexAuth({
   jwtSecret: process.env.JWT_SECRET,
   mongoUri: process.env.MONGO_URI,

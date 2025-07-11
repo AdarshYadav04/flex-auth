@@ -118,11 +118,17 @@ Each request to `/register` or `/login` must include a `method` field and the re
 Add the following to your `.env`:
 
 ```env
-GOOGLE_CLIENT_ID=your_google_client_id
+//Required
+JWT_SECRET=your_jwt_secret_here  
+MONGO_URI=mongodb+srv://your_user:your_pass@cluster.mongodb.net/your_db 
+
+// Only if using OAuth
+GOOGLE_CLIENT_ID=your_google_client_id  
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
 OAUTH_CALLBACK=http://localhost:3000/auth/callback
+CLIENT_BASE_URL=http://localhost:5173
 ```
 
 Ensure the callback URLs are registered in Google/GitHub developer settings:

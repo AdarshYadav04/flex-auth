@@ -45,9 +45,11 @@ function generateOAuthRoutes(app, jwtSecret) {
 
   app.get('/auth/callback/:provider', (req, res, next) => {
     passport.authenticate(req.params.provider, { session: false }, (err, user) => {
-      if (err || !user) return res.redirect('/login');
+      if (err || !user) return res.redirect(`${process.env.CLIENT_BASE_URL}`);
       const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1h' });
-      res.json({ token, message: 'OAuth login success' });
+      const redirectUrl = `${process.env.CLIENT_BASE_URL}/oauth-success?token=${token}&message=OAuth login success`
+      res.redirect(redirectUrl)
+      
     })(req, res, next);
   });
 }
